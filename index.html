@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Comment</title>
+
+    <!-- Template Main CSS File -->
+    <link href="style.css" rel="stylesheet">
+</head>
+
+<body>
+    <h1>Ucapan</h1>
+    <p>Merupakan suatu kehormatan dan kebahagiaan bagi kami sekeluarga apabila Bapak/Ibu/Saudara/i berkenan hadir untuk
+        memberikan doa restu kepada kedua mempelai.</p>
+    <div id="item">
+        <!-- Tampilan Jumlah Komentar -->
+        <h3 id="comment-count"></h3>
+        <!-- Form untuk mengirim ucapan -->
+        <form id="form" autocomplete="off">
+            <input type="text" id="nama" placeholder="Nama*" autofocus required
+                oninvalid="this.setCustomValidity('Masukkan Nama Anda')" oninput="this.setCustomValidity('')"><br>
+            <textarea id="ucapan" placeholder="Ucapan*" required minlength="2"
+                oninvalid="this.setCustomValidity('Masukkan Ucapan Anda')"
+                oninput="this.setCustomValidity('')"></textarea><br>
+            <select required oninvalid="this.setCustomValidity('Harus Konfirmasi Kehadiran')"
+                oninput="this.setCustomValidity('')">
+                <option disabled selected>Konfirmasi Kehadiran*</option>
+                <option value="hadir"> Hadir</option>
+                <option value="tidak hadir"> Tidak Hadir</option>
+            </select>
+            <br><br>
+            <button type="submit" id="submit">Kirim</button>
+        </form>
+        <!-- Pesan sukses pengiriman ucapan -->
+        <div id="success-message" class="hidden">
+            <!-- <p>Terima kasih, ucapan Anda sudah terkirim!</p> -->
+        </div>
+        <!-- Pesan error pengiriman ucapan -->
+        <div id="error-message" class="hidden">
+            <!-- <p>Maaf, terjadi kesalahan saat mengirim ucapan Anda. Silakan coba lagi nanti.</p> -->
+        </div>
+        <div id="ucapan-container">
+        </div>
+    </div>
+</body>
+
+<!-- Include Firebase library -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<!-- Firebase -->
+<script src="firebaseConfig.js"></script>
+<!-- Main  -->
+<script src="main.js"></script>
+</body>
+
+</html>
