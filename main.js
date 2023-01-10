@@ -2,6 +2,7 @@ const rdb = firebase.database();
 
 const form = document.getElementById('form');
 
+
 form.addEventListener('submit', (event) => {
     // Mencegah pengiriman data default ke Firebase
     event.preventDefault();
@@ -17,6 +18,7 @@ form.addEventListener('submit', (event) => {
         ucapan: ucapan,
         kehadiran: kehadiran,
         tanggalWaktu: tanggalWaktu.toString(),
+
     }).then(function () {
         // Tampilkan pesan sukses
         var successMessage = document.createElement("p");
@@ -44,8 +46,6 @@ form.addEventListener('submit', (event) => {
     form.reset();
 });
 
-
-
 // Dapatkan referensi ke database Firebase
 var sayingRef = firebase.database().ref("ucapan");
 
@@ -55,28 +55,19 @@ sayingRef.on("value", function (snapshot) {
     var sayingContainer = document.getElementById("ucapan-container");
     sayingContainer.innerHTML = "";
 
-    // // Tampilkan jumlah komentar ucapan yang ada di database
-    // console.log("Jumlah komentar ucapan:", snapshot.numChildren());
-
-    // // Tambahkan event listener untuk mendeteksi adanya data komentar baru
-    // sayingRef.on("child_added", function (childSnapshot) {
-    //     // Tampilkan jumlah komentar ucapan yang ada di database setiap ada data komentar baru
-    //     console.log("Jumlah komentar ucapan:", snapshot.numChildren());
-    // });
-
     // Dapatkan elemen HTML untuk menampilkan jumlah komentar ucapan
     var commentCountEl = document.getElementById("comment-count");
 
     // Dapatkan ucapan terbaru saat halaman dimuat
     sayingRef.on("value", function (snapshot) {
         // Tampilkan jumlah komentar ucapan yang ada di database
-        commentCountEl.innerHTML = snapshot.numChildren() + " Komentar";
+        commentCountEl.innerHTML = snapshot.numChildren() + " Ucapan" + " <i class='fa fa-comments' aria-hidden= 'true'></i>";
     });
 
     // Tambahkan event listener untuk mendeteksi adanya data komentar baru
     sayingRef.on("child_added", function (childSnapshot) {
         // Tampilkan jumlah komentar ucapan yang ada di database setiap ada data komentar baru
-        commentCountEl.innerHTML = snapshot.numChildren() + " Komentar";
+        commentCountEl.innerHTML = snapshot.numChildren() + " Ucapan" + " <i class='fa fa-comments' aria-hidden= 'true'></i>";
     });
 
     // Tampilkan setiap ucapan
@@ -115,32 +106,11 @@ function displaySay(nama, ucapan, kehadiran, tanggalWaktu) {
         if (months > 0) {
             timeAgo += ' ' + months + ' bulan';
         }
-        if (weeks > 0) {
-            timeAgo += ' ' + weeks + ' minggu';
-        }
-        if (days > 0) {
-            timeAgo += ' ' + days + ' hari';
-        }
-        if (hours > 0) {
-            timeAgo += ' ' + hours + ' jam';
-        }
-        if (minutes > 0) {
-            timeAgo += ' ' + minutes + ' menit';
-        }
         timeAgo += ' yang lalu';
     } else if (months > 0) {
         timeAgo = months + ' bulan';
         if (weeks > 0) {
             timeAgo += ' ' + weeks + ' minggu';
-        }
-        if (days > 0) {
-            timeAgo += ' ' + days + ' hari';
-        }
-        if (hours > 0) {
-            timeAgo += ' ' + hours + ' jam';
-        }
-        if (minutes > 0) {
-            timeAgo += ' ' + minutes + ' menit';
         }
         timeAgo += ' yang lalu';
     } else if (weeks > 0) {
@@ -148,20 +118,11 @@ function displaySay(nama, ucapan, kehadiran, tanggalWaktu) {
         if (days > 0) {
             timeAgo += ' ' + days + ' hari';
         }
-        if (hours > 0) {
-            timeAgo += ' ' + hours + ' jam';
-        }
-        if (minutes > 0) {
-            timeAgo += ' ' + minutes + ' menit';
-        }
         timeAgo += ' yang lalu';
     } else if (days > 0) {
         timeAgo = days + ' hari';
         if (hours > 0) {
             timeAgo += ' ' + hours + ' jam';
-        }
-        if (minutes > 0) {
-            timeAgo += ' ' + minutes + ' menit';
         }
         timeAgo += ' yang lalu';
     } else if (hours > 0) {
@@ -188,7 +149,7 @@ function displaySay(nama, ucapan, kehadiran, tanggalWaktu) {
         timeAgo +
         "</small>";
 
-    // Tambahkan elemen div ke container ucapan
+    // Tambahkan elemen div ke container ucapan sebagai elemen pertama
     var sayingContainer = document.getElementById("ucapan-container");
-    sayingContainer.appendChild(sayEl);
+    sayingContainer.insertBefore(sayEl, sayingContainer.firstChild);
 }
